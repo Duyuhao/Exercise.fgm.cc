@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>循环实现div变色</title>
+</head>
+<style>
+    #outer{width:330px;height:100px;margin:10px auto;}
+    #outer div{float:left;width:100px;height:100px;margin:0 5px;background:black;}
+</style>
+<script>
+    window.onload=function () {
+        var div=document.getElementById("outer").getElementsByTagName("div");
+        var btn=document.getElementsByTagName("button")[0];
+        btn.onclick=function () {
+            for (var i=0;i<div.length;i++){
+                div[i].style.background="red";
+            }
+        }
+    }
+</script>
+<body>
+<!--center标签在Html5里不用了-->
+<center><button>点击按钮使div变红</button></center>
+<div id="outer">
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+</body>
+</html>
