@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用parseInt解析数字，并求和</title>
+    <style>
+        body{font:12px/1.5 arial;text-align:center;}
+        .f-text{width:50px;border:1px solid #ccc;background:#f0f0f0;font-family:inherit;padding:3px;}
+        span{color:green;padding-right:10px;font-weight:700;}
+        strong{padding:0 10px;}
+    </style>
+    <script>
+        window.onload=function () {
+            var result=document.getElementsByTagName("span")[0];
+            var com=document.getElementsByTagName("input");
+            for (var i = 0; i < com.length - 1; i++)
+            {
+                com[i].onkeyup = function ()
+                {
+                    this.value = this.value.replace(/[^\d]/,"")
+                }
+            }
+           com[2].onclick=function () {
+
+               (com[0].value == "" || com[1].value == "") ?
+                   alert("请输入数字！") :
+                   result.innerHTML = parseInt(com[0].value) + parseInt(com[1].value);
+            }
+        }
+    </script>
+</head>
+<body>
+<input type="text" class="f-text" /><strong>+</strong>
+<input type="text" class="f-text" /><strong>=</strong>
+<span>?</span>
+<input type="button" value="求和" />
+</body>
+</html>
