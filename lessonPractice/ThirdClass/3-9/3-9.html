@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>倒计时时钟</title>
+    <style>
+        body,div{margin:0;padding:0;}
+        body{color:#fff;font:16px/1.5 \5fae\8f6f\96c5\9ed1;}
+        #countdown{width:300px;text-align:center;background:#1a1a1a;margin:10px auto;padding:20px 0;}
+        input{border:0;width:283px;height:50px;cursor:pointer;margin-top:20px;
+            background:url(img/btn-1.png) no-repeat;}
+        input.cancel{background-position:0 -50px;}
+        span{color:#000;width:80px;line-height:2;background:#fbfbfb;border:2px solid #b4b4b4;margin:0 10px;padding:0 10px;}
+    </style>
+    <script>
+        window.onload=function () {
+            var count=document.getElementById("countdown");
+            var btn=count.getElementsByTagName("input")[0];
+            var span=count.getElementsByTagName("span");
+            var set=null;
+            btn.onclick=function () {
+                this.className!="cancel"?(this.className="cancel",set=setInterval(updatatime,1000))
+                    :(this.className="",clearInterval(set));
+            }
+            function updatatime() {
+              var mil=span[0].innerHTML;
+              var sec=span[1].innerHTML;
+              var intm=parseInt(mil.replace(/^0(\d)/,"$1"));
+              var ints=parseInt(sec.replace(/^0(\d)/,"$1"))
+            if(ints!=0){
+                  ints--;
+                  span[1].innerHTML=formdata(ints.toString());
+            }else if (intm>0){
+                  intm--;
+                  ints=59;
+                  span[0].innerHTML=formdata(intm.toString());
+                  span[1].innerHTML=formdata(ints.toString());
+            } else {
+                  clearInterval(set);
+            }
+            }
+            function formdata(str) {
+               return str.replace(/^(\d)$/,"0$1");
+            }
+
+        }
+    </script>
+</head>
+<body>
+<div id="countdown">
+    <span>01</span>分钟<span>40</span>秒
+    <input type="button" value=""/>
+</div>
+</body>
+</html>
