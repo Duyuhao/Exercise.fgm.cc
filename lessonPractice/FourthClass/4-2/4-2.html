@@ -23,6 +23,7 @@
             var aImg = aUl[0].getElementsByTagName("li");
             var aNum = aUl[1].getElementsByTagName("li");
             var play=timer=null;
+            var flag=false;
             var i=index=0;
 
             for (i=0;i<aNum.length;i++){
@@ -43,9 +44,15 @@
             //自动播放功能
             function autoplay() {
                play=setInterval(function () {
-                   index++;
-                   index>=aImg.length&&(index=0);
-                   show(index);
+                   if (flag){
+                       index--;
+                       index<0&&(index+=2,flag=false);
+                       show(index)
+                   }else {
+                       index++;
+                       index>=aImg.length&&(index-=2,flag=true);
+                       show(index);
+                   }
                },2000)
             }
             //加载完成后默认开始轮播
