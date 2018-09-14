@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用键盘控制DIV</title>
+    <style type="text/css">
+        html,body{overflow:hidden;}
+        body{margin:0;padding:0;}
+        pre{color:green;padding:10px 15px;background:#f0f0f0;border:1px dotted #333;font:12px/1.5 Courier New;margin:12px;}
+        span{color:#999;}
+        #box{position:absolute;top:50px;left:300px;width:100px;height:100px;background:red;}
+    </style>
+    <script>
+        window.onload=function () {
+            var box=document.getElementById("box")
+            var otop = oleft = oright = obottom = octrl =false;
+            setInterval(function () {
+                if (oleft){
+                    box.style.left=box.offsetLeft-10+"px"
+                }
+                if (otop) {
+                    box.style.top=box.offsetTop-10+"px"
+                }
+                if (oright){
+                    box.style.left=box.offsetLeft+10+"px"
+                }
+                if (obottom){
+                    box.style.top=box.offsetTop+10+"px"
+                }
+                limit();
+            },30)
+            function limit(){
+                var doc=[document.documentElement.clientWidth,document.documentElement.clientHeight]
+                //左侧溢出
+                box.offsetLeft<=0&&(box.style.left =0);
+                //顶端溢出
+                box.offsetTop<=0&&(box.style.top=0);
+                //右侧溢出
+                doc[0]-box.offsetLeft-box.offsetWidth<=0&&(box.style.left=doc[0]-box.offsetWidth+"px");
+                //下端溢出
+                doc[1]-box.offsetTop-box.offsetHeight<=0&&(box.style.top=doc[1]-box.offsetHeight+"px")
+
+            }
+            document.onkeydown=function (event) {
+                var event=event||window.event
+                octrl=event.ctrlKey
+                switch (event.key){
+                    case "ArrowLeft":
+                        oleft=true
+                        break;
+                    case "ArrowRight":
+                        oright=true
+                        break;
+                    case "ArrowUp":
+                        if (octrl){
+                            var oldwidth=box.offsetWidth
+                            var oldheight=box.offsetHeight
+                            box.style.width=oldwidth*1.5+"px"
+                            box.style.height=oldheight*1.5+"px"
+                            box.style.left=box.offsetLeft-(box.offsetWidth-oldwidth)/2+"px"
+                            box.style.top=box.offsetTop-(box.offsetHeight-oldheight)/2+"px"
+                            break;
+                        }
+                        otop=true
+                        break;
+                    case "ArrowDown":
+                        if (octrl){
+                            var oldwidth=box.offsetWidth
+                            var oldheight=box.offsetHeight
+                            box.style.width=oldwidth*0.75+"px"
+                            box.style.height=oldheight*0.75+"px"
+                            box.style.left=box.offsetLeft-(box.offsetWidth-oldwidth)/2+"px"
+                            box.style.top=box.offsetTop-(box.offsetHeight-oldheight)/2+"px"
+                            break;
+                        }
+                        obottom=true
+                        break;
+                    case "1":
+                        octrl&&(box.style.background="green")
+                        break;
+                    case "2":
+                        octrl&&(box.style.background="yellow")
+                        break;
+                    case "3":
+                        octrl&&(box.style.background="blue")
+                        break;
+                }
+                return false
+            }
+            document.onkeyup=function (event) {
+                var event=event||window.event
+                switch (event.key){
+                    case "ArrowLeft":
+                        oleft=false
+                        break;
+                    case "ArrowRight":
+                        oright=false
+                        break;
+                    case "ArrowUp":
+                        otop=false
+                        break;
+                    case "ArrowDown":
+                        obottom=false
+                        break;
+                }
+            }
+
+        }
+    </script>
+</head>
+<body>
+<pre>
+红色方块为键盘操作区域，您可以进行如下操作：
+
+上：↑ 下：↓ 左：← 右：→
+
+Ctrl + 1 : 背景变为绿色
+Ctrl + 2 : 背景变为黄色
+Ctrl + 3 : 背景变为蓝色
+Ctrl + ↑ : 放大
+Ctrl + ↓ : 缩小
+</pre>
+<div id="box"></div>
+</body>
+</html>
